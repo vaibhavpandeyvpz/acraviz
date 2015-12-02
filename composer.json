@@ -12,7 +12,7 @@
       "Acraviz\\": "classes/"
     }
   },
-  "description": "Open-source, Symfony/Doctrine powered backend for visualizing crash reports librar from ACRA library for Android",
+  "description": "Open-source, Symfony/Doctrine powered backend for visualizing crash reports from ACRA library for Android",
   "homepage": "http://vaibhavpandeyvpz.github.io/acraviz",
   "keywords": [
     "acra",
