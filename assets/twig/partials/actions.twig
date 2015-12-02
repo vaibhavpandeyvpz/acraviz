@@ -1,0 +1,24 @@
+<div class="btn-toolbar pull-right">
+    <div class="btn-group btn-group-xs">
+        <button class="btn btn-default" data-action="refresh">
+            <i class="fa fa-fw fa-refresh"></i>
+            <span class="hidden-xs">{{ 'buttons.refresh'|trans }}</span>
+        </button>
+    </div>
+    <div class="btn-group btn-group-xs">
+        <button class="btn btn-info" data-action="select">
+            <i class="fa fa-fw fa-check-square-o"></i>
+            <span class="hidden-xs">{{ 'buttons.select_all'|trans }}</span>
+        </button>
+        <button class="btn btn-info" data-action="deselect">
+            <i class="fa fa-fw fa-square-o"></i>
+            <span class="hidden-xs">{{ 'buttons.deselect_all'|trans }}</span>
+        </button>
+    </div>
+    <div class="btn-group btn-group-xs">
+        <button class="btn btn-danger" data-action="delete:{{ ns }}" data-url="{{ url(routes.delete) }}">
+            <i class="fa fa-fw fa-trash-o"></i>
+            <span class="hidden-xs">{{ 'buttons.delete'|trans }}</span>
+        </button>
+    </div>
+</div>

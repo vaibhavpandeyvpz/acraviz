@@ -1,0 +1,30 @@
+{% extends 'layouts/slim.twig' %}
+
+{% block body %}
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ url('login') }}">{{ 'app'|trans }}</a>
+            </div>
+        </div>
+    </nav>
+    {{ parent() }}
+{% endblock %}
+
+{% block page %}
+    {% if input('logout') == 'true' %}
+        <div class="alert alert-info">
+            <ul class="fa-ul">
+                <li><i class="fa-li fa fa-info"></i> {{ 'alerts.login.logout'|trans }}</li>
+            </ul>
+        </div>
+    {% endif %}
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            {{ form(form, {'action': url('login_check'), 'method': 'POST'}) }}
+        </div>
+    </div>
+    <hr>
+    <p>{{ 'messages.login.reset'|trans }}</p>
+    <pre><code><strong>user@box</strong>:<span class="text-danger">~$</span> php acraviz users:reset -U<span class="text-muted">&lt;USER&gt;</span></code></pre>
+{% endblock %}

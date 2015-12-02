@@ -1,0 +1,15 @@
+{
+  "name": "acraviz",
+  "devDependencies": {
+    "bootbox.js": "bootbox#~4.4.0",
+    "bootstrap": "~3.3.5",
+    "bootstrap-growl": "~1.1.0",
+    "bootswatch": "~3.3.5",
+    "datatables": "~1.10.10",
+    "datatables-responsive": "~2.0.0",
+    "font-awesome": "~4.3.0",
+    "handlebars": "~4.0.5",
+    "jquery": "~2.1.4",
+    "typeahead.js": "~0.11.1"
+  }
+}

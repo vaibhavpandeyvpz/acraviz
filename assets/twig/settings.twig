@@ -1,0 +1,14 @@
+{% extends 'layouts/slim.twig' %}
+
+{% block body %}
+    {% include 'partials/navbar.twig' %}
+    {{ parent() }}
+{% endblock %}
+
+{% block page %}
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            {{ form(form, {'action': url('settings_update'), 'method': 'POST'}) }}
+        </div>
+    </div>
+{% endblock %}

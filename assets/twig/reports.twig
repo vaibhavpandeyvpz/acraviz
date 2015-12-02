@@ -1,0 +1,35 @@
+{% extends 'layouts/dashboard.twig' %}
+
+{% block container %}
+    {{ parent() }}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            {% include 'partials/actions.twig' with {ns: 'report'} %}
+            <h4 class="panel-title"><i class="fa fa-fw fa-navicon"></i> {{ title|trans }}</h4>
+        </div>
+        <div class="panel-body">
+            <table class="table table-bordered table-hover table-striped" data-role="datatable" data-url="{{ url(routes.data) }}" data-view="{{ url(routes.view, {id: '%d'})|url_decode }}">
+                <thead>
+                <tr>
+                    <th data-key="id">#</th>
+                    <th data-key="exception">{{ 'table.exception'|trans }}</th>
+                    <th data-key="package_name">{{ 'table.application'|trans }}</th>
+                    <th data-key="phone_model">{{ 'table.device'|trans }}</th>
+                    <th data-key="crash_count">{{ 'table.crash_count'|trans }}</th>
+                    <th data-key="created_at">{{ 'table.reported_on'|trans }}</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th>#</th>
+                    <th>{{ 'table.exception'|trans }}</th>
+                    <th>{{ 'table.application'|trans }}</th>
+                    <th>{{ 'table.device'|trans }}</th>
+                    <th>{{ 'table.crash_count'|trans }}</th>
+                    <th>{{ 'table.reported_on'|trans }}</th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+{% endblock %}

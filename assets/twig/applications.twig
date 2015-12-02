@@ -1,0 +1,47 @@
+{% extends 'layouts/dashboard.twig' %}
+
+{% block container %}
+    {{ parent() }}
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><i class="fa fa-fw fa-plus"></i> {{ 'headings.add_application'|trans }}</h4>
+                </div>
+                <div class="panel-body">
+                    {{ form(form, {'action': url('applications_add'), 'method': 'POST'}) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {% include 'partials/actions.twig' with {ns: 'application'} %}
+                    <h5 class="panel-title"><i class="fa fa-fw fa-navicon"></i> {{ title|trans }}</h5>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-hover table-striped" data-role="datatable" data-url="{{ url(routes.data) }}">
+                        <thead>
+                        <tr>
+                            <th data-key="id">#</th>
+                            <th data-key="package_name">{{ 'table.package'|trans }}</th>
+                            <th data-key="token">{{ 'table.token'|trans }}</th>
+                            <th data-key="crash_count">{{ 'table.crash_count'|trans }}</th>
+                            <th data-key="created_at">{{ 'table.added_on'|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>{{ 'table.package'|trans }}</th>
+                            <th>{{ 'table.token'|trans }}</th>
+                            <th>{{ 'table.crash_count'|trans }}</th>
+                            <th>{{ 'table.added_on'|trans }}</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

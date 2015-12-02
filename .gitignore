@@ -1,0 +1,14 @@
+bower_components/
+node_modules/
+vendor/
+.idea/
+
+storage/logs/*
+storage/twig/*
+www/*
+.env
+
+!www/.htaccess
+!www/index.php
+composer.lock
+!.gitignore

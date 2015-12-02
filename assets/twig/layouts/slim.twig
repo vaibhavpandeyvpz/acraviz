@@ -1,0 +1,11 @@
+{% extends 'layouts/bootstrap.twig' %}
+
+{% block container %}
+    <div class="row">
+        <div class="col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4">
+            <h3 class="heading-alt">{{ title|trans }}</h3>
+            {% include 'partials/flash.twig' %}
+            {% block page %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

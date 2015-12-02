@@ -1,0 +1,51 @@
+{
+  "authors": [
+    {
+      "email": "contact@vaibhavpandey.com",
+      "homepage": "http://www.vaibhavpandey.com/",
+      "name": "Vaibhav Pandey",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Acraviz\\": "classes/"
+    }
+  },
+  "description": "Open-source, Symfony/Doctrine powered backend for visualizing crash reports librar from ACRA library for Android",
+  "homepage": "http://vaibhavpandeyvpz.github.io/acraviz",
+  "keywords": [
+    "acra",
+    "android",
+    "crash reporting",
+    "backend"
+  ],
+  "license": "GPL-2.0",
+  "name": "vaibhavpandeyvpz/acraviz",
+  "require": {
+    "doctrine/dbal": "^2.5",
+    "ircmaxell/password-compat": "^1.0",
+    "monolog/monolog": "^1.13",
+    "php": ">=5.4",
+    "silex/silex": "^1.3",
+    "symfony/console": "^2.7",
+    "symfony/form": "^2.7",
+    "symfony/security": "^2.7",
+    "symfony/security-csrf": "^2.7",
+    "symfony/translation": "^2.7",
+    "symfony/twig-bridge": "^2.7",
+    "symfony/validator": "^2.7",
+    "twig/twig": "^1.18",
+    "vlucas/phpdotenv": "^2.0",
+    "symfony/config": "^2.7",
+    "ircmaxell/random-lib": "^1.1"
+  },
+  "scripts" : {
+    "post-create-project-cmd": [
+      "npm i",
+      "bower i",
+      "gulp"
+    ]
+  },
+  "type": "project"
+}

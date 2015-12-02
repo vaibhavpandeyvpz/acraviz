@@ -1,0 +1,55 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+(new Dotenv\Dotenv(__DIR__))->load();
+
+use Acraviz\Console\ConsoleApplication;
+use Acraviz\Console\Commands\Db\ImportCommand as DbImport;
+use Acraviz\Console\Commands\Security\ReKeyCommand as SecurityReKey;
+use Acraviz\Console\Commands\Users\AddCommand as UsersAdd;
+use Acraviz\Console\Commands\Users\ResetCommand as UsersReset;
+use Doctrine\DBAL\DriverManager as DBAL;
+use RandomLib\Factory as Random;
+use SecurityLib\Strength as RandomStrength;
+use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder as Encoder;
+
+$container = new Pimple();
+
+$container['root'] = __DIR__;
+
+$container['db'] = $container->share(function ()
+{
+    return DBAL::getConnection(array(
+        'charset' => getenv('DB_CHARSET'),
+        'dbname' => getenv('DB_NAME'),
+        'driver' => getenv('DB_DRIVER'),
+        'host' => getenv('DB_HOST'),
+        'password' => getenv('DB_PASSWORD'),
+        'port' => getenv('DB_PORT'),
+        'user' => getenv('DB_USER')
+    ));
+});
+
+$container['encoder'] = $container->share(function ()
+{
+    return new Encoder((int) getenv('SECURITY_COST'));
+});
+
+$container['random'] = $container->share(function ()
+{
+    return (new Random())->getGenerator(new RandomStrength(RandomStrength::MEDIUM));
+});
+
+$app = new ConsoleApplication();
+
+$app->add(new DbImport($container));
+
+$app->add(new SecurityReKey($container));
+
+$app->add(new UsersAdd($container));
+
+$app->add(new UsersReset($container));
+
+$app->run();

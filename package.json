@@ -1,0 +1,15 @@
+{
+  "name": "acraviz",
+  "devDependencies": {
+    "del": "~1.2.0",
+    "gulp": "^3.9.0",
+    "gulp-add-src": "^0.2.0",
+    "gulp-concat": "^2.5.2",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-filter": "^3.0.1",
+    "gulp-less": "^3.0.3",
+    "gulp-plumber": "^1.0.1",
+    "gulp-sass": "^2.1.0",
+    "gulp-uglify": "^1.2.0"
+  }
+}

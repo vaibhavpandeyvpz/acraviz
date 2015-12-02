@@ -1,0 +1,340 @@
+{% extends 'layouts/dashboard.twig' %}
+
+{% block container %}
+    {{ parent() }}
+    <div class="row">
+        <div class="col-md-4 col-lg-3">
+            <h1 class="heading-alt" style="margin-top: 0;">{{ title|trans({'%id%': report.id}) }}</h1>
+            <p>
+                {{ application.title }}<br>
+                <small>{{ application.package_name }} <span class="text-muted">{{ report.app_version_name }}</span> </small>
+            </p>
+            <h3>{{ 'headings.version_info'|trans }}</h3>
+            <hr>
+            <dl>
+                <dt>{{ 'report.app_version_code'|trans }}</dt>
+                <dd>{{ report.app_version_code }}</dd>
+                <dt>{{ 'report.app_version_name'|trans }}</dt>
+                <dd>{{ report.app_version_name }}</dd>
+                <dt>{{ 'report.android_version'|trans }}</dt>
+                <dd>{{ report.android_version }}</dd>
+            </dl>
+            <h3>{{ 'headings.device_info'|trans }}</h3>
+            <hr>
+            <dl>
+                <dt>{{ 'report.brand'|trans }}</dt>
+                <dd>{{ report.brand }}</dd>
+                <dt>{{ 'report.phone_model'|trans }}</dt>
+                <dd>{{ report.phone_model }}</dd>
+                <dt>{{ 'report.product'|trans }}</dt>
+                <dd>{{ report.product }}</dd>
+            </dl>
+            <h3>{{ 'headings.misc_info'|trans }}</h3>
+            <hr>
+            <dl>
+                <dt>{{ 'report.file_path'|trans }}</dt>
+                <dd>{{ report.file_path }}</dd>
+                <dt>{{ 'report.start_datetime'|trans }}</dt>
+                <dd>{{ report.user_app_start_date }}</dd>
+                <dt>{{ 'report.crash_datetime'|trans }}</dt>
+                <dd>{{ report.user_crash_date }}</dd>
+            </dl>
+        </div>
+        <div class="col-md-8 col-lg-9">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#tab-stack-trace" aria-controls="tab-stack-trace" role="tab" data-toggle="tab">{{ 'report.stack_trace'|trans }}</a>
+                </li>
+                <li role="presentation">
+                    <a href="#tab-logcat" aria-controls="tab-logcat" role="tab" data-toggle="tab">{{ 'report.logcat'|trans }}</a>
+                </li>
+                <li role="presentation">
+                    <a href="#tab-dumpsys-meminfo" aria-controls="tab-logcat" role="tab" data-toggle="tab">{{ 'report.dumpsys_meminfo'|trans }}</a>
+                </li>
+            </ul>
+            <div class="spacer-16"></div>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="tab-stack-trace">
+                    <pre><code>{% spaceless %}{{ report.stack_trace }}{% endspaceless %}</code></pre>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="tab-logcat">
+                    <pre><code>{% spaceless %}{{ report.logcat }}{% endspaceless %}</code></pre>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="tab-dumpsys-meminfo">
+                    <pre><code>{% spaceless %}{{ report.dumpsys_meminfo }}{% endspaceless %}</code></pre>
+                </div>
+            </div>
+            <div class="panel-group" id="report-accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="report-build-heading">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#report-accordion" href="#report-build-collapse" aria-expanded="false" aria-controls="report-build-collapse">
+                                <i class="fa fa-fw fa-bars"></i> {{ 'report.build'|trans }}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="report-build-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="report-build-heading">
+                        {% set tmp = nvp(report.build) %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <tbody>
+                                {% for pair in tmp %}
+                                    <tr>
+                                        <th>{{ pair[0] }}</th>
+                                        <td>{{ pair[1] }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="report-build-heading">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#report-accordion" href="#report-display-collapse" aria-expanded="false" aria-controls="report-display-collapse">
+                                <i class="fa fa-fw fa-bars"></i> {{ 'report.display'|trans }}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="report-display-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="report-display-heading">
+                        {% set tmp = nvp(report.display) %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <tbody>
+                                {% for pair in tmp %}
+                                    <tr>
+                                        <th>{{ pair[0] }}</th>
+                                        <td>{{ pair[1] }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="report-device-features-heading">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#report-accordion" href="#report-device-features-collapse" aria-expanded="false" aria-controls="report-device-features-collapse">
+                                <i class="fa fa-fw fa-bars"></i> {{ 'report.device_features'|trans }}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="report-device-features-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="report-device-features-heading">
+                        {% set tmp = lines(report.device_features) %}
+                        <ul class="list-group">
+                            {% for line in tmp %}
+                                {% if line %}
+                                    <li class="list-group-item">{{ line }}</li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-group" id="report-accordion-2" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="report-build-config-heading">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#report-accordion-2" href="#report-build-config-collapse" aria-expanded="false" aria-controls="report-build-config-collapse">
+                                <i class="fa fa-fw fa-bars"></i> {{ 'report.build_config'|trans }}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="report-build-config-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="report-build-config-heading">
+                        {% set tmp = nvp(report.build_config) %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <tbody>
+                                {% for pair in tmp %}
+                                    <tr>
+                                        <th>{{ pair[0] }}</th>
+                                        <td>{{ pair[1] }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="report-environment-heading">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#report-accordion-2" href="#report-environment-collapse" aria-expanded="false" aria-controls="report-environment-collapse">
+                                <i class="fa fa-fw fa-bars"></i> {{ 'report.environment'|trans }}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="report-environment-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="report-environment-heading">
+                        {% set tmp = nvp(report.environment) %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <tbody>
+                                {% for pair in tmp %}
+                                    <tr>
+                                        <th>{{ pair[0] }}</th>
+                                        <td>{{ pair[1] }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="report-shared-preferences-heading">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#report-accordion-2" href="#report-shared-preferences-collapse" aria-expanded="false" aria-controls="report-shared-preferences-collapse">
+                                <i class="fa fa-fw fa-bars"></i> {{ 'report.shared_preferences'|trans }}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="report-shared-preferences-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="report-shared-preferences-heading">
+                        {% set tmp = nvp(report.shared_preferences) %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <tbody>
+                                {% for pair in tmp %}
+                                    <tr>
+                                        <th>{{ pair[0] }}</th>
+                                        <td>{{ pair[1] }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-group" id="report-accordion-3" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="report-initial-configuration-heading">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#report-accordion-3" href="#report-initial-configuration-collapse" aria-expanded="false" aria-controls="report-initial-configuration-collapse">
+                                <i class="fa fa-fw fa-bars"></i> {{ 'report.initial_configuration'|trans }}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="report-initial-configuration-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="report-initial-configuration-heading">
+                        {% set tmp = nvp(report.initial_configuration) %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <tbody>
+                                {% for pair in tmp %}
+                                    <tr>
+                                        <th>{{ pair[0] }}</th>
+                                        <td>{{ pair[1] }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="report-crash-configuration-heading">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#report-accordion-3" href="#report-crash-configuration-collapse" aria-expanded="false" aria-controls="report-crash-configuration-collapse">
+                                <i class="fa fa-fw fa-bars"></i> {{ 'report.crash_configuration'|trans }}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="report-crash-configuration-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="report-crash-configuration-heading">
+                        {% set tmp = nvp(report.crash_configuration) %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <tbody>
+                                {% for pair in tmp %}
+                                    <tr>
+                                        <th>{{ pair[0] }}</th>
+                                        <td>{{ pair[1] }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-group" id="report-accordion-4" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="report-settings-global-heading">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#report-accordion-3" href="#report-settings-global-collapse" aria-expanded="false" aria-controls="report-settings-global-collapse">
+                                <i class="fa fa-fw fa-bars"></i> {{ 'report.settings_global'|trans }}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="report-settings-global-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="report-settings-global-heading">
+                        {% set tmp = nvp(report.settings_global) %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <tbody>
+                                {% for pair in tmp %}
+                                    <tr>
+                                        <th>{{ pair[0] }}</th>
+                                        <td>{{ pair[1] }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="report-settings-secure-heading">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#report-accordion-3" href="#report-settings-secure-collapse" aria-expanded="false" aria-controls="report-settings-secure-collapse">
+                                <i class="fa fa-fw fa-bars"></i> {{ 'report.settings_secure'|trans }}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="report-settings-secure-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="report-settings-secure-heading">
+                        {% set tmp = nvp(report.settings_secure) %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <tbody>
+                                {% for pair in tmp %}
+                                    <tr>
+                                        <th>{{ pair[0] }}</th>
+                                        <td>{{ pair[1] }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="report-settings-system-heading">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#report-accordion-3" href="#report-settings-system-collapse" aria-expanded="false" aria-controls="report-settings-system-collapse">
+                                <i class="fa fa-fw fa-bars"></i> {{ 'report.settings_system'|trans }}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="report-settings-system-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="report-settings-system-heading">
+                        {% set tmp = nvp(report.settings_system) %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <tbody>
+                                {% for pair in tmp %}
+                                    <tr>
+                                        <th>{{ pair[0] }}</th>
+                                        <td>{{ pair[1] }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block meta %}
+    <title>{{ title|trans({'%id%': report.id}) }} - {{ 'app'|trans }}</title>
+{% endblock %}

@@ -1,0 +1,117 @@
+@import "../../bower_components/bootstrap/less/bootstrap";
+@import "../../bower_components/bootswatch/lumen/variables";
+@import "../../bower_components/bootswatch/lumen/bootswatch";
+
+@footer-height: 40px;
+
+html,
+body {
+  height: 100%;
+}
+
+#wrapper {
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto -@footer-height;
+  padding: 0 0 @footer-height;
+}
+
+footer {
+  height: @footer-height;
+  background-color: #f5f5f5;
+  border-top: 2px solid #999;
+  p {
+    margin-top: 8px;
+  }
+}
+
+pre {
+  overflow-x: auto;
+
+  code {
+    overflow-wrap: normal;
+    white-space: pre;
+  }
+}
+
+.heading-alt {
+  &:after {
+    background: @brand-primary;
+    content: '';
+    display: block;
+    height: 4px;
+    margin: 8px 0 16px;
+    width: 48px;
+  }
+}
+
+.link-danger {
+  color: @brand-danger;
+  &:active {
+    color: lighten(@brand-danger, 10%);
+  }
+  &:hover {
+    color: darken(@brand-danger, 10%);
+  }
+}
+
+.navbar-brand-alt {
+  padding: 8px;
+}
+
+.panel, .panel-body {
+  .table {
+    margin-bottom: 0;
+  }
+}
+
+.spacer-16 {
+  content: ' ';
+  display: block;
+  height: 16px;
+}
+
+// Source https://github.com/bassjobsen/typeahead.js-bootstrap-css/blob/master/typeaheadjs.less
+
+span.twitter-typeahead {
+  width: 100%;
+
+  .tt-menu {
+    &:extend(.dropdown-menu);
+  }
+
+  .tt-dropdown-menu {
+    &:extend(.dropdown-menu);
+  }
+
+  .tt-suggestion {
+    &:extend(.dropdown-menu > li > a);
+    &:hover,
+    &:focus {
+      &:extend(.dropdown-menu > .active > a);
+    }
+  }
+
+  .tt-suggestion.tt-cursor {
+    &:extend(.dropdown-menu > .active > a);
+  }
+
+  .input-group & {
+    display: block !important;
+    .tt-dropdown-menu {
+      top:32px !important;
+    }
+  }
+
+  .input-group.input-group-lg & {
+    .tt-dropdown-menu {
+      top:44px !important;
+    }
+  }
+
+  .input-group.input-group-sm & {
+    .tt-dropdown-menu {
+      top:28px !important;
+    }
+  }
+}

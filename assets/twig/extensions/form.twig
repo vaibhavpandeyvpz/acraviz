@@ -1,0 +1,96 @@
+{# Source: https://github.com/MFoster/KillerCrud/blob/master/src/Titan/KillerCrudBundle/Resources/views/Form/bootstrap-form-horizontal.html.twig #}
+{# Source: https://github.com/MFoster/KillerCrud/blob/master/src/Titan/KillerCrudBundle/Resources/views/Form/bootstrap-override.html.twig #}
+{# Source: Self #}
+
+{% block button_attributes %}
+    {% spaceless %}
+        id="{{ id }}" name="{{ full_name }}"{% if disabled %} disabled="disabled"{% endif %}
+        {% set hasClass = false %}
+        {% for attrname, attrvalue in attr %}
+            {{ attrname }}="{{ attrvalue }}"
+            {% if attrname == "class" %}
+                {% set hasClass = true %}
+            {% endif %}
+        {% endfor %}
+        {% if not hasClass %}
+            class="btn"
+        {% endif %}
+    {% endspaceless %}
+{% endblock button_attributes %}
+
+{% block form_errors %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+            <span class="help-block">
+                {% for error in errors %}
+                    {{ error.message|trans }}<br>
+                {% endfor %}
+            </span>
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}
+
+{% block form_label %}
+    {% spaceless %}
+        {% if label is not sameas(false) %}
+            {% if not compound %}
+                {% set label_attr = label_attr|merge({'for': id}) %}
+            {% endif %}
+            {% if required %}
+                {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+            {% endif %}
+            {% if label is empty %}
+                {% set label = name|humanize %}
+            {% endif %}
+            <label class="control-label" {% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+                {% if 'checkbox' in block_prefixes %}
+                    {{ form_widget(form) }}
+                {% endif %}
+                {{ label|trans({}, translation_domain) }}
+            </label>
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_label %}
+
+{% block form_row %}
+    {% spaceless %}
+        {% if 'checkbox' not in block_prefixes %}
+            <div class="form-group{% if errors|length > 0 %} has-error{% endif %}">
+                {{ form_label(form) }}
+                {% if 'datetime' not in block_prefixes %}
+                    {{ form_widget(form, { 'attr': {'class': 'form-control'} }) }}
+                {% else %}
+                    {{ form_widget(form) }}
+                {% endif %}
+                {{ form_errors(form) }}
+            </div>
+        {% else %}
+            {% import _self as forms %}
+            <div class="checkbox">
+                {{ form_label(form) }}
+            </div>
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_row %}
+
+{% block form_start %}
+    {% spaceless %}
+        {% set method = method|upper %}
+        {% if method in ["GET", "POST"] %}
+            {% set form_method = method %}
+        {% else %}
+            {% set form_method = "POST" %}
+        {% endif %}
+        <form method="{{ form_method|lower }}" action="{{ action }}"{% for attrname, attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}{% if multipart %} enctype="multipart/form-data"{% endif %}>
+        {% if form_method != method %}
+            <input type="hidden" name="_method" value="{{ method }}" />
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_start %}
+
+{% block form_widget_simple %}
+    {% spaceless %}
+        {% set type = type|default('text') %}
+        <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    {% endspaceless %}
+{% endblock form_widget_simple %}

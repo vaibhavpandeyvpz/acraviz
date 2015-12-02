@@ -1,0 +1,10 @@
+{% extends 'layouts/bootstrap.twig' %}
+
+{% block body %}
+    {% include 'partials/navbar.twig' %}
+    {{ parent() }}
+{% endblock %}
+
+{% block container %}
+    {% include 'partials/flash.twig' %}
+{% endblock %}

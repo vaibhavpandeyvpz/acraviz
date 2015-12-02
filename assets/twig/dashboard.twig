@@ -1,0 +1,92 @@
+{% extends 'layouts/dashboard.twig' %}
+
+{% block container %}
+    {{ parent() }}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <a class="btn btn-primary btn-xs pull-right" href="{{ url('reports') }}" data-toggle="tooltip" title="{{ 'buttons.view_all_reports'|trans }}">
+                        <i class="fa fa-fw fa-arrow-right"></i>
+                    </a>
+                    <h4 class="panel-title"><i class="fa fa-fw fa-bar-chart"></i> {{ 'headings.most_crashing'|trans }}</h4>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>{{ 'table.application'|trans }}</th>
+                            <th>{{ 'table.crash_count'|trans }}</th>
+                            <th>{{ 'table.last_crashed_on'|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if most_crashing %}
+                            {% for detail in most_crashing %}
+                                <tr>
+                                    <td>
+                                        {{ detail.title }}<br>
+                                        <small class="text-muted">{{ detail.package_name }}</small>
+                                    </td>
+                                    <td>{{ detail.crash_count }}</td>
+                                    <td>{{ detail.last_crashed_on }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr><td colspan="4" class="text-center">{{ 'table.no_crashes'|trans }}</td></tr>
+                        {% endif %}
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td>{{ 'table.application'|trans }}</td>
+                            <td>{{ 'table.crash_count'|trans }}</td>
+                            <td>{{ 'table.last_crashed_on'|trans }}</td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a class="btn btn-default btn-xs pull-right" href="{{ url('reports') }}" data-toggle="tooltip" title="{{ 'buttons.view_all_reports'|trans }}">
+                        <i class="fa fa-fw fa-arrow-right"></i>
+                    </a>
+                    <h4 class="panel-title"><i class="fa fa-fw fa-bar-chart"></i> {{ 'headings.most_reported'|trans }}</h4>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>{{ 'table.exception'|trans }}</th>
+                            <th>{{ 'table.report_count'|trans }}</th>
+                            <th>{{ 'table.last_reported_on'|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if most_reported %}
+                            {% for detail in most_reported %}
+                                <tr>
+                                    <td class="text-danger">{{ detail.exception }}</td>
+                                    <td>{{ detail.report_count }}</td>
+                                    <td>{{ detail.last_reported_on }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr><td colspan="4" class="text-center">{{ 'table.no_crashes'|trans }}</td></tr>
+                        {% endif %}
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td>{{ 'table.exception'|trans }}</td>
+                            <td>{{ 'table.report_count'|trans }}</td>
+                            <td>{{ 'table.last_reported_on'|trans }}</td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

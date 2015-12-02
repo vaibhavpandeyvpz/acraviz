@@ -1,0 +1,54 @@
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand navbar-brand-alt" href="{{ url('dashboard') }}" data-toggle="tooltip" title="{{ 'app'|trans }}">
+                <span class="fa-stack">
+                  <i class="fa fa-bug fa-stack-1x text-success"></i>
+                  <i class="fa fa-ban fa-stack-2x text-danger"></i>
+                </span>
+            </a>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+            <ul class="nav navbar-nav navbar-left">
+                <li role="presentation"><a href="{{ url('dashboard') }}">{{ 'nav.dashboard'|trans }}</a></li>
+                <li role="presentation"><a href="{{ url('applications') }}">{{ 'nav.applications'|trans }}</a></li>
+                <li role="presentation"><a href="{{ url('reports') }}">{{ 'nav.reports'|trans }}</a></li>
+                <li role="presentation" class="hidden-sm hidden-md hidden-lg"><a href="{{ url('settings') }}">{{ 'nav.settings'|trans }}</a></li>
+                <li role="presentation" class="hidden-sm hidden-md hidden-lg"><a href="{{ url('logout') }}">{{ 'nav.logout'|trans }}</a></li>
+            </ul>
+            <form class="navbar-form navbar-left hidden-xs hidden-sm" role="search">
+                <div class="form-group has-success has-feedback">
+                    <input type="search" class="form-control" placeholder="{{ 'fields.search'|trans }}" data-role="searchviz" data-url="{{ url('search', {query: '%s'})|url_decode }}">
+                    <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+                </div>
+            </form>
+            <ul class="nav navbar-nav navbar-right hidden-xs">
+                <li class="dropdown">
+                    <a href="javascript:" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        {{ 'text.hi'|trans({'%user%': user.username}) }} <i class="fa fa-fw fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation">
+                            <a href="{{ url('settings') }}">
+                                <i class="fa fa-fw fa-cog hidden-xs"></i>
+                                {{ 'nav.settings'|trans }}
+                            </a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li role="presentation">
+                            <a href="{{ url('logout') }}">
+                                <i class="fa fa-fw fa-sign-out hidden-xs"></i>
+                                {{ 'nav.logout'|trans }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
