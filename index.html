@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>Acraviz by vaibhavpandeyvpz</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Acraviz</h1>
+        <h2>Open-source, Silex/Doctrine powered backend for visualizing crash reports from ACRA library for Android</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/vaibhavpandeyvpz/acraviz/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/vaibhavpandeyvpz/acraviz/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/vaibhavpandeyvpz/acraviz" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a id="vaibhavpandeyvpzacraviz" class="anchor" href="#vaibhavpandeyvpzacraviz" aria-hidden="true"><span class="octicon octicon-link"></span></a>vaibhavpandeyvpz/acraviz</h1>
+
+<p>Open-source, <a href="http://silex.sensiolabs.org/">Silex</a>/<a href="http://www.doctrine-project.org/">Doctrine</a> powered backend for visualizing crash reports from <a href="http://www.acra.ch/">ACRA</a> library for Android</p>
+
+<h2>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting Started</h2>
+
+<ul>
+<li>Install <a href="https://nodejs.org/en/">Node.js</a> on your machine.</li>
+<li>Install <a href="http://bower.io/">Bower</a> and <a href="http://gulpjs.com/">Gulp</a> globally using below commands:</li>
+</ul>
+
+<div class="highlight highlight-source-shell"><pre>npm i -g bower gulp</pre></div>
+
+<ul>
+<li>Install <a href="https://getcomposer.org/">Composer</a> using below command:</li>
+</ul>
+
+<div class="highlight highlight-source-shell"><pre>curl -sS https://getcomposer.org/installer <span class="pl-k">|</span> php -- --install-dir=bin --filename=composer</pre></div>
+
+<ul>
+<li>Install <a href="https://github.com/vaibhavpandeyvpz/acraviz">ACRAViz</a> via composer:</li>
+</ul>
+
+<div class="highlight highlight-source-shell"><pre>php bin/composer create-project vaibhavpandeyvpz/acraviz mysite <span class="pl-s"><span class="pl-pds">"</span>@dev<span class="pl-pds">"</span></span></pre></div>
+
+<ul>
+<li>Move the <code>.env.example</code> to <code>.env</code>, and edit your database (<strong>DB_</strong>*) credentials. Then execute below commands in project directory:</li>
+</ul>
+
+<div class="highlight highlight-source-shell"><pre>php acraviz db:import -F./schema.sql
+php acraviz users:add -U<span class="pl-k">&lt;</span>USER<span class="pl-k">&gt;</span> -P<span class="pl-k">&lt;</span>PASSWORD<span class="pl-k">&gt;</span>
+php acraviz security:rekey</pre></div>
+
+<ul>
+<li>Navigate to <a href="https://github.com/vaibhavpandeyvpz/acraviz">ACRAViz</a> via <code>http</code>, use the credentials you entered earlier in command-line to <em>login</em>.</li>
+<li>Go to <strong>Applications</strong> from navigation at top, enter your application <strong>title</strong> &amp; <strong>package name</strong> on the left for and hit <strong>Add</strong>.</li>
+<li>Now, you can use your <code>package name</code> as <strong>Username</strong> and <code>token</code> as <strong>Password</strong> for setting up basic auth when using ACRA as shown below. Please note the <strong>formUri</strong> should point to <a href="https://github.com/vaibhavpandeyvpz/acraviz">ACRAViz</a> installation + <code>/api</code> suffix.</li>
+</ul>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">package</span> <span class="pl-smi">com.vaibhavpandey.acraviz.demo</span>;
+
+<span class="pl-k">import</span> <span class="pl-smi">android.app.Application</span>;
+<span class="pl-k">import</span> <span class="pl-smi">org.acra.ACRA</span>;
+<span class="pl-k">import</span> <span class="pl-smi">org.acra.annotation.ReportsCrashes</span>;
+
+@ReportsCrashes(
+        formUri <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>http://domain.tld/api<span class="pl-pds">"</span></span>,
+        formUriBasicAuthLogin <span class="pl-k">=</span> <span class="pl-smi">BuildConfig</span><span class="pl-c1"><span class="pl-k">.</span>APPLICATION_ID</span>,
+        formUriBasicAuthPassword <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;token&gt;<span class="pl-pds">"</span></span>)
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MainApplication</span> <span class="pl-k">extends</span> <span class="pl-e">Application</span> {
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onCreate</span>() {
+        <span class="pl-v">super</span><span class="pl-k">.</span>onCreate();
+        <span class="pl-c1">ACRA</span><span class="pl-k">.</span>init(<span class="pl-v">this</span>);
+    }
+
+}</pre></div>
+
+<h2>
+<a id="screenshots" class="anchor" href="#screenshots" aria-hidden="true"><span class="octicon octicon-link"></span></a>Screenshots</h2>
+
+<p><img src="https://raw.githubusercontent.com/vaibhavpandeyvpz/acraviz/master/assets/screenshots/0.png" alt="Screenshot #0" title="Screenshot #0">
+<img src="https://raw.githubusercontent.com/vaibhavpandeyvpz/acraviz/master/assets/screenshots/1.png" alt="Screenshot #1" title="Screenshot #1">
+<img src="https://raw.githubusercontent.com/vaibhavpandeyvpz/acraviz/master/assets/screenshots/2.png" alt="Screenshot #2" title="Screenshot #2">
+<img src="https://raw.githubusercontent.com/vaibhavpandeyvpz/acraviz/master/assets/screenshots/3.png" alt="Screenshot #3" title="Screenshot #3">
+<img src="https://raw.githubusercontent.com/vaibhavpandeyvpz/acraviz/master/assets/screenshots/4.png" alt="Screenshot #4" title="Screenshot #4"></p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>See <a href="https://github.com/vaibhavpandeyvpz/acraviz/blob/master/LICENSE.md">LICENSE.md</a> file.</p>
+      </section>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-67528024-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
