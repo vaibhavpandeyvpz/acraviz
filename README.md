@@ -48,4 +48,4 @@ public class MainApplication extends Application {
 ```
 License
 ------
-See [LICENSE.md](https://github.com/vaibhavpandeyvpz/frameworx/blob/2.x/LICENSE.md) file.
+See [LICENSE.md](https://github.com/vaibhavpandeyvpz/acraviz/blob/master/LICENSE.md) file.
