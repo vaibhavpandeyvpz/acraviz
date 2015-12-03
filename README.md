@@ -50,9 +50,9 @@ public class MainApplication extends Application {
 Screenshots
 ------
 ![Screenshot #1](https://raw.githubusercontent.com/vaibhavpandeyvpz/acraviz/master/assets/screenshots/1.png "Screenshot #1")
-![Screenshot #2](https://raw.githubusercontent.com/vaibhavpandeyvpz/acraviz/master/assets/screenshots/1.png "Screenshot #2")
-![Screenshot #3](https://raw.githubusercontent.com/vaibhavpandeyvpz/acraviz/master/assets/screenshots/1.png "Screenshot #3")
-![Screenshot #4](https://raw.githubusercontent.com/vaibhavpandeyvpz/acraviz/master/assets/screenshots/1.png "Screenshot #4")
+![Screenshot #2](https://raw.githubusercontent.com/vaibhavpandeyvpz/acraviz/master/assets/screenshots/2.png "Screenshot #2")
+![Screenshot #3](https://raw.githubusercontent.com/vaibhavpandeyvpz/acraviz/master/assets/screenshots/3.png "Screenshot #3")
+![Screenshot #4](https://raw.githubusercontent.com/vaibhavpandeyvpz/acraviz/master/assets/screenshots/4.png "Screenshot #4")
 
 License
 ------
