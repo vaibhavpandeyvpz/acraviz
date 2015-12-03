@@ -1,4 +1,5 @@
 # vaibhavpandeyvpz/acraviz
+Open-source, [Silex](http://silex.sensiolabs.org/)/[Doctrine](http://www.doctrine-project.org/) powered backend for visualizing crash reports from [ACRA](http://www.acra.ch/) library for Android
 
 Getting Started
 ------
@@ -15,7 +16,15 @@ curl -sS https://getcomposer.org/installer | php -- --install-dir=bin --filename
 ```bash
 php bin/composer create-project vaibhavpandeyvpz/acraviz mysite "@dev"
 ```
-- Use your ```package name``` as **Usename** and ```token``` as **Password** for setting up basic auth when using ACRA as shown below.
+- Move the ```.env.example``` to ```.env```, and edit your database (**DB_***) credentials. Then execute below commands in project directory:
+```bash
+php acraviz db:import -F./schema.sql
+php acraviz users:add -U<USER> -P<PASSWORD>
+php acraviz security:rekey
+```
+- Navigate to [ACRAViz](https://github.com/vaibhavpandeyvpz/acraviz) via ```http```, use the credentials you entered earlier in command-line.
+- Go to **Applications** from navigation at top, enter your application **title** & **package name** on the left for andhit **Add**.
+- Now, you can use your ```package name``` as **Usename** and ```token``` as **Password** for setting up basic auth when using ACRA as shown below. Please note the **formUri** should point to [ACRAViz](https://github.com/vaibhavpandeyvpz/acraviz) installation + ```/api``` suffix.
 ```java
 package com.vaibhavpandey.acraviz.demo;
 
@@ -37,3 +46,6 @@ public class MainApplication extends Application {
 
 }
 ```
+License
+------
+See [LICENSE.md](https://github.com/vaibhavpandeyvpz/frameworx/blob/2.x/LICENSE.md) file.
