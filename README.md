@@ -49,6 +49,7 @@ public class MainApplication extends Application {
 
 Screenshots
 ------
+![Screenshot #0](https://raw.githubusercontent.com/vaibhavpandeyvpz/acraviz/master/assets/screenshots/0.png "Screenshot #0")
 ![Screenshot #1](https://raw.githubusercontent.com/vaibhavpandeyvpz/acraviz/master/assets/screenshots/1.png "Screenshot #1")
 ![Screenshot #2](https://raw.githubusercontent.com/vaibhavpandeyvpz/acraviz/master/assets/screenshots/2.png "Screenshot #2")
 ![Screenshot #3](https://raw.githubusercontent.com/vaibhavpandeyvpz/acraviz/master/assets/screenshots/3.png "Screenshot #3")
