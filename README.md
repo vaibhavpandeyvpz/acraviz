@@ -22,8 +22,8 @@ php acraviz db:import -F./schema.sql
 php acraviz users:add -U<USER> -P<PASSWORD>
 php acraviz security:rekey
 ```
-- Navigate to [ACRAViz](https://github.com/vaibhavpandeyvpz/acraviz) via ```http```, use the credentials you entered earlier in command-line.
-- Go to **Applications** from navigation at top, enter your application **title** & **package name** on the left for andhit **Add**.
+- Navigate to [ACRAViz](https://github.com/vaibhavpandeyvpz/acraviz) via ```http```, use the credentials you entered earlier in command-line to *login*.
+- Go to **Applications** from navigation at top, enter your application **title** & **package name** on the left for and hit **Add**.
 - Now, you can use your ```package name``` as **Usename** and ```token``` as **Password** for setting up basic auth when using ACRA as shown below. Please note the **formUri** should point to [ACRAViz](https://github.com/vaibhavpandeyvpz/acraviz) installation + ```/api``` suffix.
 ```java
 package com.vaibhavpandey.acraviz.demo;
@@ -46,6 +46,14 @@ public class MainApplication extends Application {
 
 }
 ```
+
+Screenshots
+------
+![Screenshot #1](https://raw.githubusercontent.com/vaibhavpandeyvpz/acraviz/master/assets/screenshots/1.png "Screenshot #1")
+![Screenshot #2](https://raw.githubusercontent.com/vaibhavpandeyvpz/acraviz/master/assets/screenshots/1.png "Screenshot #2")
+![Screenshot #3](https://raw.githubusercontent.com/vaibhavpandeyvpz/acraviz/master/assets/screenshots/1.png "Screenshot #3")
+![Screenshot #4](https://raw.githubusercontent.com/vaibhavpandeyvpz/acraviz/master/assets/screenshots/1.png "Screenshot #4")
+
 License
 ------
 See [LICENSE.md](https://github.com/vaibhavpandeyvpz/acraviz/blob/master/LICENSE.md) file.
