@@ -24,7 +24,7 @@ php acraviz security:rekey
 ```
 - Navigate to [ACRAViz](https://github.com/vaibhavpandeyvpz/acraviz) via ```http```, use the credentials you entered earlier in command-line to *login*.
 - Go to **Applications** from navigation at top, enter your application **title** & **package name** on the left for and hit **Add**.
-- Now, you can use your ```package name``` as **Usename** and ```token``` as **Password** for setting up basic auth when using ACRA as shown below. Please note the **formUri** should point to [ACRAViz](https://github.com/vaibhavpandeyvpz/acraviz) installation + ```/api``` suffix.
+- Now, you can use your ```package name``` as **Username** and ```token``` as **Password** for setting up basic auth when using ACRA as shown below. Please note the **formUri** should point to [ACRAViz](https://github.com/vaibhavpandeyvpz/acraviz) installation + ```/api``` suffix.
 ```java
 package com.vaibhavpandey.acraviz.demo;
 
