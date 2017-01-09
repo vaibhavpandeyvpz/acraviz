@@ -132,7 +132,7 @@
                     });
                     switch (action) {
                         case 'delete:application':
-                            if (selected.length == 1) {
+                            if (selected.length >= 1) {
                                 bootbox.confirm('Deleting selected applications will also delete associated crash reports. Continue?', function (result) {
                                     if (result) {
                                         $.post($el.data('url'), {
@@ -150,7 +150,7 @@
                             }
                             break;
                         case 'delete:report':
-                            if (selected.length == 1) {
+                            if (selected.length >= 1) {
                                 bootbox.confirm('Are you sure you wish to delete selected crash reports? This cannot be undone.', function (result) {
                                     if (result) {
                                         $.post($el.data('url'), {
