@@ -90,6 +90,30 @@
                     </div>
                 </div>
                 <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="report-custom-data-heading">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#report-accordion" href="#report-custom-data-collapse" aria-expanded="false" aria-controls="report-custom-data-collapse">
+                                <i class="fa fa-fw fa-bars"></i> {{ 'report.custom_data'|trans }}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="report-custom-data-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="report-custom-data-heading">
+                        {% set tmp = nvp(report.custom_data) %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <tbody>
+                                {% for pair in tmp %}
+                                    <tr>
+                                        <th>{{ pair[0] }}</th>
+                                        <td>{{ pair[1] }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="report-build-heading">
                         <h4 class="panel-title">
                             <a role="button" data-toggle="collapse" data-parent="#report-accordion" href="#report-display-collapse" aria-expanded="false" aria-controls="report-display-collapse">
