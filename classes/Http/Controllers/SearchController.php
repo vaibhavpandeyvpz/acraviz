@@ -17,6 +17,7 @@ class SearchController extends BaseController
                 ->from('reports', 'R')
                 ->leftJoin('R', 'applications', 'A', 'A.id = R.application_id')
                 ->where($qb->expr()->like('R.stack_trace', ':query'))
+                ->orWhere($qb->expr()->like('R.custom_data', ':query'))
                 ->orWhere($qb->expr()->like('A.title', ':query'))
                 ->orderBy('R.created_at', 'DESC');
             /** @var $group \Doctrine\DBAL\Query\QueryBuilder */
