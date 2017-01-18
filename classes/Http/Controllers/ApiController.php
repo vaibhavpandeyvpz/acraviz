@@ -27,11 +27,7 @@ class ApiController extends BaseController
                 ->execute();
             if ($result->rowCount() == 1) {
                 $application = $result->fetchColumn(0);
-                $post = $request->request->all();
-                $data = array();
-                foreach ($post as $key => $value) {
-                    $data[strtolower($key)] = $value;
-                }
+                $data = $this->extractDataFromRequest($request);
                 $data = array_replace($data, array(
                     'application_id' => $application,
                     'checksum' => hash('md5', $data['package_name'] . $data['stack_trace']),
@@ -59,4 +55,66 @@ class ApiController extends BaseController
             throw new BadRequestHttpException();
         }
     }
+
+    /**
+     * Extracts only the passed data from the request
+     * either in the JSON-format from the request body
+     * or as form-urlencoded string from the post-request.
+     *
+     * @param $request \Symfony\Component\HttpFoundation\Request
+     * @return array
+     */
+    private function extractDataFromRequest($request)
+    {
+        if ($request->getContentType() == 'json') {
+            $source = json_decode($request->getContent(), true);
+        } else {
+            $source = $request->request->all();
+        }
+        $data = array();
+        foreach ($source as $key => $value) {
+            if (is_array($value)) {
+                $value = $this->keyValueArrayToString($value);
+            }
+            $data[strtolower($key)] = $value;
+        }
+        return $data;
+    }
+
+    /**
+     * Converts an array to a string with the
+     * format <code><key>=<value>\n</code>.
+     * <br><br>
+     * If the value is an array itself the array
+     * will be converted recursively the same way
+     * with the original key as a prefix like
+     * <code><key>.<sub-key>=<value>\n</code>.
+     *
+     * @param $keyValueArray
+     * @param string $keyPrefix
+     * @return string
+     */
+    private function keyValueArrayToString($keyValueArray, $keyPrefix = '')
+    {
+        $result = '';
+        $first = true;
+        foreach($keyValueArray as $key => $value) {
+            if ($first) $first = false;
+            else $result .= "\n"; // double quote necessary!
+            if (is_array($value)) {
+                $prefix = $this->prepend($keyPrefix, $key);
+                $result .= $this->keyValueArrayToString($value, $prefix);
+            } else {
+                $result .= $this->prepend($keyPrefix, $key) . '=' . $value;
+            }
+        }
+        return $result;
+    }
+
+    private function prepend($prefix, $string, $delimiter = '.')
+    {
+        if ($prefix === '') return $string;
+        return $prefix . $delimiter . $string;
+    }
+
 }
