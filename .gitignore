@@ -8,6 +8,8 @@ storage/twig/*
 www/*
 .env
 
+release-*.zip
+
 !www/.htaccess
 !www/index.php
 composer.lock
