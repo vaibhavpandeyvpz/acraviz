@@ -17,6 +17,8 @@ class RoutesServiceProvider implements ServiceProviderInterface
 
         $app->post('/api', 'ApiController:save');
 
+        $app->put('/api/{report_id}', 'ApiController:save');
+
         $app->get('/applications', 'ApplicationsController:index')
             ->bind('applications');
 

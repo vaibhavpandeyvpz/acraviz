@@ -50,7 +50,7 @@ $app->register(new SecurityServiceProvider(), array(
     'security.firewalls' => array(
         'login' => array(
             'anonymous' => true,
-            'pattern' => '^/(api|login)$',
+            'pattern' => '^/(api(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12})?|login)$',
         ),
         'admin' => array(
             'form' => array(
