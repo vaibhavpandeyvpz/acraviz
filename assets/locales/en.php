@@ -83,6 +83,7 @@ return array(
         'brand' => 'Brand',
         'build' => 'Build',
         'build_config' => 'Build Config',
+        'custom_data' => 'Custom Data',
         'crash_configuration' => 'Crash Configuration',
         'crash_datetime' => 'Crash Date/Time',
         'device_features' => 'Device Features',
