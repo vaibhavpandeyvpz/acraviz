@@ -11,6 +11,7 @@ class DashboardController extends BaseController
         $qb->select('A.title', 'A.package_name', 'R.checksum', 'R.created_at AS last_crashed_on')
             ->from('reports', 'R')
             ->leftJoin('R', 'applications', 'A', 'A.id = R.application_id')
+            ->where($qb->expr()->eq('hidden', '0'))
             ->orderBy('last_crashed_on', 'DESC');
         /** @var $group \Doctrine\DBAL\Query\QueryBuilder */
         $group = $this->container['db']->createQueryBuilder();;
@@ -23,6 +24,7 @@ class DashboardController extends BaseController
         $qb = $this->container['db']->createQueryBuilder();
         $qb->select('exception', 'checksum', 'created_at AS last_reported_on')
             ->from('reports')
+            ->where($qb->expr()->eq('hidden', '0'))
             ->orderBy('last_reported_on', 'DESC');
         /** @var $group \Doctrine\DBAL\Query\QueryBuilder */
         $group = $this->container['db']->createQueryBuilder();;

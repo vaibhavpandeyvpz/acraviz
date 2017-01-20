@@ -101,7 +101,11 @@ class Datatables
         /**
          * Fetch Results
          */
-        $output['data'] = $this->query->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data = $this->query->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        foreach ($data as $index => $item) {
+            $data[$index]['hidden'] = ($item['hidden'] == '0') ? 'no' : 'yes';
+        }
+        $output['data'] = $data;
         /**
          * Add Filter
          */

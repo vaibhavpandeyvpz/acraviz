@@ -52,6 +52,8 @@ class RoutesServiceProvider implements ServiceProviderInterface
         $datatables->post('/reports', 'DatatablesController:reports')
             ->bind('datatables_reports');
 
+        $datatables->post('/reports/{showHiddenReports}', 'DatatablesController:reports');
+
         $app->mount('/datatables', $datatables);
 
         /** var $delete \Silex\ControllerCollection */
@@ -64,6 +66,22 @@ class RoutesServiceProvider implements ServiceProviderInterface
             ->bind('delete_reports');
 
         $app->mount('/delete', $delete);
+
+        /** var $hide \Silex\ControllerCollection */
+        $hide = $app['controllers_factory'];
+
+        $hide->post('/reports', 'HideController:reports')
+            ->bind('hide_reports');
+
+        $app->mount('/hide', $hide);
+
+        /** var $hide \Silex\ControllerCollection */
+        $show = $app['controllers_factory'];
+
+        $show->post('/reports', 'HideController:showReports')
+            ->bind('show_reports');
+
+        $app->mount('/show', $show);
     }
 
     /**

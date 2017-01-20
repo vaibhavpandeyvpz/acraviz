@@ -24,8 +24,9 @@ class DatatablesController extends BaseController
         return new JsonResponse($data);
     }
 
-    public function reports()
+    public function reports($showHiddenReports = 'false')
     {
+        $showHiddenReports = ($showHiddenReports === 'true');
         /** @var $join \Doctrine\DBAL\Query\QueryBuilder */
         $join = $this->container['db']->createQueryBuilder();
         $join->select('checksum', 'COUNT(checksum) AS count')
@@ -33,10 +34,13 @@ class DatatablesController extends BaseController
             ->groupBy('checksum');
         /** @var $select \Doctrine\DBAL\Query\QueryBuilder */
         $select = $this->container['db']->createQueryBuilder();
-        $select->select('R.id', 'R.android_version', 'R.app_version_name', 'R.app_version_code', 'R.brand', 'C.count AS crash_count', 'R.exception', 'R.package_name', 'R.phone_model', 'A.title', 'R.created_at')
+        $select->select('R.id', 'R.android_version', 'R.app_version_name', 'R.app_version_code', 'R.brand', 'C.count AS crash_count', 'R.exception', 'R.package_name', 'R.phone_model', 'A.title', 'R.created_at', 'R.hidden')
             ->from('reports', 'R')
             ->leftJoin('R', 'applications', 'A', 'A.id = R.application_id')
             ->innerJoin('R', '(' . $join->getSQL() . ')', 'C', 'C.checksum = R.checksum');
+        if (!$showHiddenReports) {
+            $select->where($select->expr()->eq('R.hidden', '0'));
+        }
         /** @var $request \Symfony\Component\HttpFoundation\Request */
         $request = $this->container['request'];
         $data = Datatables::of($select)->make($request->request->all());
