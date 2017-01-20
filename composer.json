@@ -38,7 +38,8 @@
     "twig/twig": "^1.18",
     "vlucas/phpdotenv": "^2.0",
     "symfony/config": "^2.7",
-    "ircmaxell/random-lib": "^1.1"
+    "ircmaxell/random-lib": "^1.1",
+    "robmorgan/phinx": "^0.6.5"
   },
   "scripts" : {
     "post-create-project-cmd": [
