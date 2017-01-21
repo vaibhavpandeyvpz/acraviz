@@ -45,7 +45,9 @@
       "npm i",
       "bower i",
       "gulp"
-    ]
+    ],
+    "build": "composer update && npm i && bower i && gulp",
+    "make-release-bundle": "./makeReleaseBundle.sh"
   },
   "type": "project"
 }
