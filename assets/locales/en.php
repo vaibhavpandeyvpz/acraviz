@@ -19,6 +19,8 @@ return array(
     'buttons'=> array(
         'add' => 'Add',
         'delete' => 'Delete',
+        'hide' => 'Hide',
+        'show' => 'Show',
         'deselect_all' => 'Deselect All',
         'login' => 'Login',
         'refresh' => 'Refresh',
@@ -114,6 +116,7 @@ return array(
         'no_crashes' => 'No crashes reported',
         'report_count' => 'Report Count',
         'reported_on' => 'Reported On',
+        'hidden' => 'Hidden',
         'token' => 'Token'
     ),
     'text'=> array(

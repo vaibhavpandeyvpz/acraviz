@@ -114,7 +114,7 @@
         $actions.each(function (i, el) {
             var $el = $(el),
                 action = $el.data('action');
-            $el.click(function () {
+            $el.click(function (e) {
                 if (action == 'refresh') {
                     $datatable.ajax.reload(null, false);
                 } else if (action == 'deselect') {
@@ -125,7 +125,23 @@
                     $.each($table.find('tbody tr td > input[name="row_id"]'), function (i, ele) {
                         $(ele).prop('checked', true);
                     });
-                } else if (action.indexOf('delete:') === 0) {
+                } else if (action == 'show-hidden-reports') {
+                    e.preventDefault();
+                    var actionValue = $el.data('value');
+                    var url;
+                    if (actionValue == 'hide') {
+                        url = $table.data('url') + '/false';
+                        //$datatableUrl = $datatable.ajax.url($table.data('url') + '/false');
+                        $el.data('value', 'show');
+                        $el.html('Show hidden reports');
+                    } else {
+                        url = $table.data('url') + '/true';
+                        //$datatableUrl = $datatable.ajax.url($table.data('url') + '/true');
+                        $el.data('value', 'hide');
+                        $el.html('Hide hidden reports');
+                    }
+                    $datatable.ajax.url(url).load();
+                } else if (action.indexOf('delete:') === 0 || action.indexOf('hide:') === 0 || action.indexOf('show:') === 0) {
                     var selected = [];
                     $.each($table.find('tbody tr td > input[name="row_id"]:checked'), function (i, ele) {
                         selected.push($(ele).val());
@@ -167,6 +183,22 @@
                                 $.growl('Please select at least one crash report to delete.', { type: 'warning' });
                             }
                             break;
+                        case 'hide:report':
+                        case 'show:report':
+                        {
+                            if (selected.length >= 1) {
+                                $.post($el.data('url'), {
+                                    row_ids: selected
+                                }).error(function () {
+                                    $.growl('Unable to ' + ((action == 'hide:report') ? 'hide' : 'show') + ' selected crash reports.', { type: 'danger' });
+                                }).success(function () {
+                                    $.growl('Selected crash reports have been made ' + ((action == 'hide:report') ? 'hidden' : 'visible again') + '.', { type: 'success' });
+                                    $datatable.ajax.reload(null, false);
+                                });
+                            } else {
+                                $.growl('Please select at least one crash report to hide/show.', { type: 'warning' });
+                            }
+                        }
                         default:
                             break;
                     }

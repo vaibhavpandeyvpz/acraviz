@@ -7,6 +7,7 @@ use Acraviz\Http\Controllers\ApiController;
 use Acraviz\Http\Controllers\DashboardController;
 use Acraviz\Http\Controllers\DatatablesController;
 use Acraviz\Http\Controllers\DeleteController;
+use Acraviz\Http\Controllers\HideController;
 use Acraviz\Http\Controllers\LoginController;
 use Acraviz\Http\Controllers\ReportsController;
 use Acraviz\Http\Controllers\SearchController;
@@ -40,6 +41,10 @@ class ControllersServiceProvider implements ServiceProviderInterface
         $app['DeleteController'] = $app->share(function () use ($app)
         {
             return new DeleteController($app);
+        });
+        $app['HideController'] = $app->share(function () use ($app)
+        {
+            return new HideController($app);
         });
         $app['LoginController'] = $app->share(function () use ($app)
         {

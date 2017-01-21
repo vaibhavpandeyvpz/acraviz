@@ -12,6 +12,8 @@ class ReportsController extends BaseController
             'routes' => array(
                 'data' => 'datatables_reports',
                 'delete' => 'delete_reports',
+                'hide' => 'hide_reports',
+                'show' => 'show_reports',
                 'view' => 'reports_view'
             ),
             'title' => 'titles.reports'

@@ -71,6 +71,7 @@ CREATE TABLE `reports` (
   `exception` VARCHAR(255) NOT NULL,
   `created_at` TIMESTAMP DEFAULT 0,
   `updated_at` TIMESTAMP DEFAULT 0 ON UPDATE CURRENT_TIMESTAMP,
+  `hidden` TINYINT(1) NOT NULL DEFAULT 0,
   FOREIGN KEY (`application_id`) REFERENCES `applications`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
   FOREIGN KEY (`package_name`) REFERENCES `applications`(`package_name`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) CHARSET utf8 ENGINE InnoDB;
