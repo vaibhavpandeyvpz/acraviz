@@ -1,7 +1,9 @@
 <div class="btn-toolbar pull-right">
+    {% if ns == 'report' %}
     <div class="btn-group btn-group-xs show-hidden-reports-link">
         <a href="" id="show-hidden-reports" data-action="show-hidden-reports" data-value="show">Show hidden reports</a>
     </div>
+    {% endif %}
     <div class="btn-group btn-group-xs">
         <button class="btn btn-default" data-action="refresh">
             <i class="fa fa-fw fa-refresh"></i>
@@ -18,6 +20,7 @@
             <span class="hidden-xs">{{ 'buttons.deselect_all'|trans }}</span>
         </button>
     </div>
+    {% if ns == 'report' %}
     <div class="btn-group btn-group-xs">
         <button class="btn btn-warning" data-action="hide:{{ ns }}" data-url="{{ url(routes.hide) }}">
             <i class="fa fa-eye-slash"></i>
@@ -30,6 +33,7 @@
             <span class="hidden-xs">{{ 'buttons.show'|trans }}</span>
         </button>
     </div>
+    {%  endif %}
     <div class="btn-group btn-group-xs">
         <button class="btn btn-danger" data-action="delete:{{ ns }}" data-url="{{ url(routes.delete) }}">
             <i class="fa fa-fw fa-trash-o"></i>
